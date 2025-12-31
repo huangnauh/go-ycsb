@@ -34,3 +34,4 @@ jobs:
           sha256sum: true
           asset_name: go-ycsb-${{ matrix.goos }}-${{ matrix.goarch }}
           build_command: "make"
+          goversion: go.mod
