@@ -72,7 +72,7 @@ func (r radosCreator) Create(p *properties.Properties) (ycsb.DB, error) {
 	pool := p.GetString(poolName, "foo")
 	workers := int(p.GetInt64(prop.ThreadCount, prop.ThreadCountDefault))
 	recordCount := p.GetInt64(prop.RecordCount, 0)
-	num := p.GetInt64(radosNum, 10000)
+	num := p.GetInt64(radosNum, 10)
 	shard := (recordCount + num - 1) / num
 	if shard <= 0 {
 		return nil, errors.New("not found record-count")
@@ -173,7 +173,7 @@ func (r *radosDB) Insert(ctx context.Context, table string, key string, values m
 		err = ioctx.SetOmap(oid, map[string][]byte{rowKey: buf})
 	}
 	if err != nil {
-		log.Printf("err: %s\n", err)
+		log.Printf("oid %s, rowKey %s, buf %d, err: %s\n", oid, rowKey, len(buf), err)
 	}
 	return err
 }
